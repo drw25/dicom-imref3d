@@ -11,13 +11,11 @@ function [img R_img T_img dmeta] = Read3DSeriesFolder(folder)
 %                  UNITS (ie. millimetres not pixels) in imref3d format
 %           T_img: a 4D transformation matrix suitable for use with imwarp
 %                  that maps image space to the DICOM reference coordinate
-%                  system;
+%                  system
 %           dmeta: Subset of DICOM metadata. UIDs and 3 important geometric
 %                  fields are retained for each slice (IOP, IPP, PS).
 %                  Remainder is only first-level fields whose value is
-%                  identical for all instances in the series;
-%           uids:  SOP Instance UIDs for each image slice, order same as
-%                  dimension 3 of img;
+%                  identical for all instances in the series
 %
 % This code will assume that there's only one series in the folder, and
 % that there are no images with the same Z value. It's therefore not
