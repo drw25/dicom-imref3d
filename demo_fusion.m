@@ -40,6 +40,13 @@ disp('Reading series...');
 [img1 R1 T1 meta1] = Read3DSeriesFolder(dir1);
 [img2 R2 T2 meta2] = Read3DSeriesFolder(dir2);
 
+%% Delete sample data files
+
+delete([dir1 filesep '*']);
+rmdir(dir1);
+delete([dir2 filesep '*']);
+rmdir(dir2);
+
 %% Map image 2 on to image 1
 
 disp('Transforming image...');
@@ -64,12 +71,5 @@ title(['Series' num2str(meta2.SeriesNumber)]);
 subplot(1,3,3);
 imshowpair(img1(:,:,round(end/2)),img2to1(:,:,round(end/2)));
 title('Fused');
-
-%% Delete sample data
-
-delete([dir1 '\*']);
-rmdir(dir1);
-delete([dir2 '\*']);
-rmdir(dir2);
 
 disp('Done.');

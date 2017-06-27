@@ -6,14 +6,18 @@ function [img R_img T_img dmeta] = Read3DSeriesFolder(folder)
 % Requires MATLAB Image Processing toolbox.
 %
 % Outputs:
-%           img  : a 3D pixel array;
+%           img  : a 3D pixel array
 %           R_img: a frame of reference in IMAGE SPACE but with PHYSICAL
 %                  UNITS (ie. millimetres not pixels) in imref3d format
 %           T_img: a 4D transformation matrix suitable for use with imwarp
 %                  that maps image space to the DICOM reference coordinate
-%                  system
-%           dmeta: DICOM metadata, containing only first-level fields whose
-%                  value is identical for all instances in the series
+%                  system;
+%           dmeta: Subset of DICOM metadata. UIDs and 3 important geometric
+%                  fields are retained for each slice (IOP, IPP, PS).
+%                  Remainder is only first-level fields whose value is
+%                  identical for all instances in the series;
+%           uids:  SOP Instance UIDs for each image slice, order same as
+%                  dimension 3 of img;
 %
 % This code will assume that there's only one series in the folder, and
 % that there are no images with the same Z value. It's therefore not
@@ -27,8 +31,8 @@ for j = 1:numel(listing)
     fn = [folder filesep listing(j).name];
     if ~listing(j).isdir && isdicom(fn)
         f = f+1;
-        dinfo{f} = dicominfo(fn);
-        img(:,:,f) = dicomread(dinfo{f});
+        dinfo{f} = dicominfo(fn); % metadata (cell since struct fields can vary)
+        img(:,:,f) = dicomread(dinfo{f}); % pixeldata
     end
 end
 
@@ -73,9 +77,10 @@ T_img = rotmat'*tmat; % Transformation matrix from image coordinates to real spa
                      % Matrix is right-multiplied by imwarp, so earlier
                      % operations should appear first
 
-% Keep a subset of the DICOM metadata - only first-level fields with numeric
-% or char datatypes, whose value is the same for every instance
 dmeta = struct();
+                     
+% Keep a subset of DICOM metadata - only first-level fields with numeric or
+% char datatypes, whose value is the same for every instance
 fn = fieldnames(dinfo{1});
 for i = 1:numel(fn)
     keep = false;
@@ -100,5 +105,14 @@ for i = 1:numel(fn)
         dmeta.(fn{i}) = dinfo{1}.(fn{i});
     end
 end
+
+% Keep some important DICOM metadata for every slice
+
+fieldcontents = @(f)cellfun(@(x){x.(f)},dinfo);
+
+dmeta.SOPInstanceUID = fieldcontents('SOPInstanceUID');
+dmeta.ImageOrientationPatient =  fieldcontents('ImageOrientationPatient');
+dmeta.ImagePositionPatient = fieldcontents('ImagePositionPatient');
+dmeta.PixelSpacing = fieldcontents('PixelSpacing');
 
 end
