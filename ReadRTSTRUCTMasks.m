@@ -1,7 +1,7 @@
 function [masks names img R_img T_img] = ReadRTSTRUCTMasks(file,folder)
 
 % Read structure masks from a DICOM RTSTRUCT file, where contours have been
-% defined on a DICOM image series stored a in folder.
+% defined on a DICOM image series stored in a folder.
 %
 % Requires MATLAB Image Processing toolbox.
 %
