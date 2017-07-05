@@ -142,6 +142,9 @@ cm2_lab = uicontrol('Units','Pixels','Position',[22 94 66 36],'Style','text','St
 % alpha blend for opaque background (https://en.wikipedia.org/wiki/Alpha_compositing#Alpha_blending) 
 alphablend = @(rgb1,rgb2,a1,a2) bsxfun(@times,rgb2,a2)+bsxfun(@times,rgb1,1-a2);
 
+% slice color map array
+sl = @(x,i) squeeze(x(:,:,i,:));
+
 % chained functions for callback
 blendslice1 = @(i,mod1) alphablend(sl(t1_map,i),sl(adc_map,i),1,mod1*sl(adc_alpha,i));
 blendslice2 = @(i,mod1,mod2) alphablend(blendslice1(i,mod1),sl(t1en_map,i),1,mod2*sl(t1en_alpha,i));
