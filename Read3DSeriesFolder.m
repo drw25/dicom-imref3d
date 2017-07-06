@@ -21,7 +21,9 @@ function [img R_img T_img dmeta] = Read3DSeriesFolder(folder)
 % that there are no images with the same Z value. It's therefore not
 % appropriate for reading in DWI/DCE myriad other 4D+ data.
 %
-% Daniel Warren - March 2017
+% Daniel R Warren
+% March 2017
+% http://github.com/drw25
 
 listing = dir(folder);
 f = 0;

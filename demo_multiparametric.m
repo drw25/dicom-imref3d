@@ -3,7 +3,9 @@
 % imaging (DWI) sequence, and then displays a GUI where fused T1, T1+Gd
 % enhancement and ADC can be visualised for a chosen slice.
 %
-% Daniel Warren - June 2017
+% Daniel R Warren
+% June 2017
+% http://github.com/drw25
 
 %% Download and extract some sample data
 

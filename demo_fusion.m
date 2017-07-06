@@ -2,7 +2,9 @@
 % orientations, reads them in using Read3DSeriesFolder, and then fuses them
 % on a common coordinate system.
 %
-% Daniel Warren - June 2017
+% Daniel R Warren
+% June 2017
+% http://github.com/drw25
 
 %% Download some sample data (server is a bit slow)
 

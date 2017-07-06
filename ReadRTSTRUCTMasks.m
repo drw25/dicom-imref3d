@@ -16,7 +16,9 @@ function [masks names img R_img T_img] = ReadRTSTRUCTMasks(file,folder)
 %
 % Folder should contain one simple image series, as for Read3DSeriesFolder.
 %
-% Daniel Warren - June 2017
+% Daniel R Warren
+% June 2017
+% http://github.com/drw25
 
 [img R_img T_img dmeta] = Read3DSeriesFolder(folder); % Image series
 

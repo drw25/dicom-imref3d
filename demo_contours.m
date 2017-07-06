@@ -2,7 +2,9 @@
 % structure set using ReadRTSTRUCTMasks, and then displays a GUI where
 % structure contours can be visualised on top of the CT for a chosen slice.
 %
-% Daniel Warren - June 2017
+% Daniel R Warren
+% June 2017
+% http://github.com/drw25
 
 %% Download and extract some sample data
 

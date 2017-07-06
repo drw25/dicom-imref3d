@@ -38,7 +38,9 @@ function [img d4vals R_img T_img dmeta] = Read4DSeriesFolder(folder,d4tag)
 %
 % This code will assume that there's only one series in the folder.
 %
-% Daniel Warren - June 2017
+% Daniel R Warren
+% June 2017
+% http://github.com/drw25
 
 % Initially read the data+metadata into 3D+1D  '_lin' variables
 listing = dir(folder);
